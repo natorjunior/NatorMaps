@@ -40,7 +40,6 @@ counties = pd.DataFrame([
 ])
 mapCities = NatorMaps.MapCities()
 mapCities.to_svg(df_cities=counties,path_name_file='exemplo2',fill='#F6F6F6')
-mapCities.to_svg(df_cities=counties,path_name_file='exemplo3')
 ```
 <p align="center"> 
   <img src="https://github.com/natorjunior/NatorMaps/blob/main/imagens/exemplo2.svg" width="300" height="300" alt>
