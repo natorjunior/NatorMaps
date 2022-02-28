@@ -7,7 +7,7 @@ class NatorMaps:
         pass
     class MapCities:
         def __init__(self):
-            self.svg_head = '<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" width="1080" height="1080" viewBox="-43.796 22.7461 0.6940999999999988 0.3362000000000016" stroke-linecap="round" stroke-linejoin="round">'
+            self.svg_head = '<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" width="1080" height="1080"  viewBox="-46.0282 2.7499 5.657699999999998 8.1789" stroke-linecap="round" stroke-linejoin="round">'
             self.url_base = 'https://servicodados.ibge.gov.br/api/v3/malhas/municipios/'
         def to_svg(self,df_cities,path_name_file='default', stroke='gray',stroke_width="6", fill= 'black'):
             svg_head = self.svg_head[:]
@@ -42,7 +42,7 @@ class NatorMaps:
                     #Salva o municipio configurado
                     svg_head += county_aux
                 else:
-                    print('Erro na requisição, código inválido ou API do IBGE indisponível')
+                    print(f'Erro na requisição, código ({county}) inválido ou API do IBGE indisponível')
             svg_head += '</svg>'
             if path_name_file == 'default':
                 hash = random.getrandbits(128)
