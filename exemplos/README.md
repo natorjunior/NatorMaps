@@ -48,7 +48,7 @@ mapCities.to_svg(df_cities=df2,path_name_file='piaui1',viewBox='viewBox="-46.028
      <em>Figura gerada no exemplo 2 para o mapa do Piauí</em>
 </p>
 
-Outro exemplo pode ser adotado, agora para uma visualização do mapa do piauí
+Outro exemplo pode ser adotado, agora para uma visualização do mapa do Piauí e Ceará juntos
 ```sh
 import pandas as pd
 from natorMaps import NatorMaps
