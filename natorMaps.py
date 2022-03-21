@@ -4,6 +4,7 @@ from tqdm.auto import tqdm
 import random
 import time
 from bs4 import BeautifulSoup
+import numpy as np
 #bs = BeautifulSoup(open(xml_file), 'xml')
 #pretty_xml = bs.prettify()
 #print(pretty_xml)
@@ -14,23 +15,33 @@ class NatorMaps:
         def __init__(self):
             self.svg_head = '<svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" width="1080" height="1080" viewBox="-46.0282 2.7499 5.657699999999998 8.1789" stroke-linecap="round" stroke-linejoin="round">'
             self.url_base = 'https://servicodados.ibge.gov.br/api/v3/malhas/municipios/'
+            self.malhas = np.load('malhas_brazil.npy', allow_pickle='TRUE').all()
         def to_svg(self,df_cities,path_name_file='default', stroke='gray',stroke_width="6", fill= 'black',viewBox=''):
             svg_head = ''
             head = ''
             min_x,min_y,width, height = 90000000,90000000,0,0
             for county in tqdm(range(len(df_cities.values))):
                 test = True
-                while test:
-                    try:
-                        #faz a busca do municipio na base do ibge, pelo código do IBGE
-                        r_county = requests.get(self.url_base+df_cities["code"].iloc[county])
-                        test = False
-                    except Exception as e:
-                        test = True
-                        time.sleep(5)
+                malhas = self.malhas
+                #print(df_cities["code"].iloc[county],malhas)
+                try:
+                    malha = malhas[int(df_cities["code"].iloc[county])]
+                except:
+                    print('ERRO',df_cities["code"].iloc[county])
+                #while test:
+                #    try:
+                #        #faz a busca do municipio na base do ibge, pelo código do IBGE
+                #        #r_county = requests.get(self.url_base+df_cities["code"].iloc[county])
+                #        malhas = np.load('malhas_ceara.npy', allow_pickle='TRUE')
+                #        malhas = malhas[df_cities["code"].iloc[county]]
+                #        test = False
+                #        #print('')
+                #    except Exception as e:
+                #        test = True
+                #        time.sleep(5)
 
-                if len(r_county.text)!=0:
-                    ab = r_county.text.split('<g')[0]
+                if True:
+                    ab = malha.split('<g')[0]
                     x,y  = ab.find('viewBox'),ab.find('stroke')-1
                     viewport = ab[x:y]
                     viewport_values = viewport[viewport.find('"'):].replace('"','').split(' ')
@@ -51,14 +62,14 @@ class NatorMaps:
                         head = self.svg_head.replace('viewBox="-46.0282 2.7499 5.657699999999998 8.1789"',f'viewBox="{min_x} {min_y} {width} {height}"')
                     #print(head)
                     # busca o inicio e o fim da path, com os identificadores <g> </g>
-                    start,end = r_county.text.find('<g'),r_county.text.find('</g>')
+                    start,end = malha.find('<g'),malha.find('</g>')
                     if list(df_cities.columns).count('city')>0:
                         if df_cities["city"].iloc[county] != '':
                             #separa apenas o path da chamada
-                            county_aux = r_county.text[start:end]+f'<title>{df_cities["city"].iloc[county]}</title>'+'</g>'
+                            county_aux = malha[start:end]+f'<title>{df_cities["city"].iloc[county]}</title>'+'</g>'
                         else:
                             #separa apenas o path da chamada
-                            county_aux = r_county.text[start:end]+'</g>'
+                            county_aux = malha[start:end]+'</g>'
                     
                     #faz um corte no parametro transforme do path, para inclusão de novos parametros
                     list_aux = county_aux.split('transform')
