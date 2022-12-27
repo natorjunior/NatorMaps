@@ -28,18 +28,6 @@ class NatorMaps:
                     malha = malhas[int(df_cities["code"].iloc[county])]
                 except:
                     print('ERRO',df_cities["code"].iloc[county])
-                #while test:
-                #    try:
-                #        #faz a busca do municipio na base do ibge, pelo código do IBGE
-                #        #r_county = requests.get(self.url_base+df_cities["code"].iloc[county])
-                #        malhas = np.load('malhas_ceara.npy', allow_pickle='TRUE')
-                #        malhas = malhas[df_cities["code"].iloc[county]]
-                #        test = False
-                #        #print('')
-                #    except Exception as e:
-                #        test = True
-                #        time.sleep(5)
-
                 if True:
                     ab = malha.split('<g')[0]
                     x,y  = ab.find('viewBox'),ab.find('stroke')-1
