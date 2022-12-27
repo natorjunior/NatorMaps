@@ -1,73 +1,31 @@
 # NatorMaps
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+Nova versao 
 
-Baixe o arquivo [natorMaps.py](https://github.com/natorjunior/NatorMaps/blob/main/natorMaps.py) e mantenha ele em seu diretório, em seguida faça o import do arquivo e seu modulo.
+- A nova versao deve 
 
-```sh
-from natorMaps import NatorMaps
-```
+# Lib de mapas em JavaScript e Python
+A nova versão da LIB **NatorMaps** é expansível a Python e JS. Ela deve ser capaz de gerar mapas a nível de município, microrregiões e macrorregiões. 
 
-O próximo passo é preparar o DataFrame, com os parâmetros esperados, sendo `"code"`, que é o código do IBGE do município e o `"fill"`, que pode ser definido individualmente ou geral.
+# Ceará
 
-```sh
-from natorMaps import NatorMaps
-import pandas as pd
-counties = pd.DataFrame([
-    {'code':'3303500','fill':'green'},
-    {'code':'3304557','fill':'blue'},
-    {'code':'3301702','fill':'gray'}
-])
-mapCities = NatorMaps.MapCities()
-mapCities.to_svg(df_cities=counties,path_name_file='exemplo1')
-```
-<p align="center"> 
-  <img src="https://github.com/natorjunior/NatorMaps/blob/main/imagens/exemplo1.svg" width="300" height="300" alt>
-</p>
-<p align="center">
-     <em>Figura gerada no exemplo 1</em>
-</p>
+#### Município
+> Formato dos dados de município: os mesmos devem conter obrigatoriamente **Código IBGE** e **COR**(em hexadecimal), opcionalmente é possível incluir um nome e uma caixa de texto (que aparecerá ao passar o mouse pelo município).
 
-No exemplo, é possível visualizar que o `fill` foi definido de forma individual, ou seja cada municipio tem uma cor diferente, caso a coluna não exista, o `fill` é definido como `black` ou pode se incluido na função `to_svg(df_cities=counties,path_name_file='exemplo2',fill="#F8F8F8")`, como demostrado abaixo.
+| .| Código IBGE | COR(em hexadecimal) | Nome (Opcional) | caixa de texto (hover, opcional)|
+ |--|--|--|--|--|
+ | .| 230440|#808080 | Fortaleza | 2.7MI habitantes
 
+#### Área Descentralizada de Saúde (ADS)
+> Formato dos dados de Área Descentralizada de Saúde(ADS): os mesmos devem conter obrigatoriamente **Código da ADS** e **COR**(em hexadecimal), opcionalmente é possível incluir um nome e uma caixa de texto (que aparecerá ao passar o mouse pelo município).
 
-```sh
-from natorMaps import NatorMaps
-import pandas as pd
-counties = pd.DataFrame([
-    {'code':'3303500'},
-    {'code':'3304557'},
-    {'code':'3301702'}
-])
-mapCities = NatorMaps.MapCities()
-mapCities.to_svg(df_cities=counties,path_name_file='exemplo2',fill='#F6F6F6')
-```
-<p align="center"> 
-  <img src="https://github.com/natorjunior/NatorMaps/blob/main/imagens/exemplo2.svg" width="300" height="300" alt>
-</p>
-<p align="center">
-     <em>Figura gerada no exemplo 2</em>
-</p>
+| .| Código da ADS | COR(em hexadecimal) | Nome (Opcional) | caixa de texto (hover, opcional)|
+ |--|--|--|--|--|
+ | .| 1|#808080 | Fortaleza | 2.7MI habitantes
 
-```sh
-from natorMaps import NatorMaps
-import pandas as pd
-counties = pd.DataFrame([
-    {'code':'3303500'},
-    {'code':'3304557'},
-    {'code':'3301702'}
-])
-mapCities = NatorMaps.MapCities()
-mapCities.to_svg(df_cities=counties,path_name_file='exemplo3')
-```
+#### Superintendência
+> Formato dos dados de Superintendência: os mesmos devem conter obrigatoriamente **Código da Superintendência** e **COR**(em hexadecimal), opcionalmente é possível incluir um nome e uma caixa de texto (que aparecerá ao passar o mouse pelo município).
 
-<p align="center"> 
-  <img src="https://github.com/natorjunior/NatorMaps/blob/main/imagens/exemplo3.svg" width="300" height="300" alt>
-</p>
-<p align="center">
-     <em>Figura gerada no exemplo 3</em>
-</p>
-
-
-
-As malhas podem ser encontradas em: 
-https://servicodados.ibge.gov.br/api/docs/malhas?versao=3#api-Malhas-estadosIdGet
+| .| Código IBGE | COR(em hexadecimal) | Nome (Opcional) | caixa de texto (hover, opcional)|
+ |--|--|--|--|--|
+ | .| 2|#808080 | Sobral | 210 mil habitantes
+# Demais Estados

@@ -1,5 +1,5 @@
 from .models.estado import Estado
-from .models.micro import Macro
+from .models.micro import Micro
 from .models.macro import Macro
 
 class Mapa:

@@ -1,2 +1,2 @@
-from . import Mapa
+from .src import Mapa
 mapa = Mapa()
