@@ -1,6 +1,4 @@
 from .models.tipo_filtro import TipoFiltro
-import pandas as pd
-
 class Mapa:
     def __init__(self, db, ano_de_referencia="2021"):
         self.tipo = TipoFiltro(db)

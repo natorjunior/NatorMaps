@@ -1,3 +1,4 @@
+"""docstring"""
 import pandas as pd
 import numpy as np
 import sqlalchemy
@@ -5,10 +6,10 @@ from tqdm.auto import tqdm
 from sqlalchemy.sql.schema import Column
 from sqlalchemy import String, Integer
 from sqlalchemy.orm import declarative_base, sessionmaker
-from sqlalchemy.orm import sessionmaker
 engine = sqlalchemy.create_engine('sqlite:///natorMaps.db', echo=False)
 Base = declarative_base()
 class Municipio(Base):
+    """docstring"""
     __tablename__ = 'municipio' # campo obrigatório
     id = Column(Integer, primary_key=True) # campo obrigatório
     id = Column(Integer, primary_key=True) # campo obrigatório
@@ -26,51 +27,39 @@ class Municipio(Base):
     populacao_estimada = Column(Integer)
     onclick=False 
     hover=False
-    """
-        Funcao para calcular e retornar os municipios
-    """
     def retornar_municipios(self):
-        pass
-    """
-        Funcao para ler as malhas de acordo com o ano de referencia
-    """
-    def load_malhas():
-        pass
-    """ 
-        funcao para retornar o mapa em formato de string
-    """
+        """Funcao para calcular e retornar os municipios"""
+    def load_malhas(self):
+        """Funcao para ler as malhas de acordo com o ano de referencia"""
     def retornar_mapa_str(self,tipo: str, dados: pd.DataFrame) -> str:
-        pass
+        """funcao para retornar o mapa em formato de string"""
 class DB:
+    """docstring"""
     def __init__(self) -> None:
         self.engine = engine
-        self.Base = Base
+        self.base = Base
         self.malhas = np.load('src/data/malhas_brazil.npy', allow_pickle='TRUE').all()
-        self.df_popBR = {2021:pd.read_excel(
+        self.df_pop_br = {2021:pd.read_excel(
             "src/data/popBR.xls",
             sheet_name='Municípios',
             header=1,
-            nrows=5570, 
+            nrows=5570,
             dtype = {'UF': str, 'COD. UF': str, 'COD. MUNIC': str}
         )}
 
-    """
-        Criando a base de dados e tabela para municipiosdos municipios 
-    """
-    def criando_db_municipios(self):
-        Base.metadata.create_all(engine)
+    def criando_db_municipios(self)->None:
+        """Criando a base de dados e tabela para municipiosdos municipios"""
+        self.base.metadata.create_all(engine)
         print('Base de dados criada')
-    """
-        Funcao para popular a tabela de municipios
-    """
     def salvando_dados_na_base(self,ano_referencia=2021):
-        df = self.df_popBR[ano_referencia]
+        """Funcao para popular a tabela de municipios"""
+        df = self.df_pop_br[ano_referencia]
         malhas = self.malhas
         #criando uma coluna que unifica o código da UF com o código do municipio
         df['cod_ibge'] = df[["COD. UF","COD. MUNIC"]].T.apply(lambda x: x[0]+x[1])
 
-        Session = sessionmaker(bind=engine)
-        session = Session()
+        session_object = sessionmaker(bind=engine)
+        session = session_object()
         #percorrendo todos os municipios e salvando os dados
         for i,row in tqdm(df.iterrows()):
             try:
@@ -103,12 +92,8 @@ class DB:
                     codigo_uf = cod_uf
                 ).first()
                 if not verify:
-                    #print('***************************')
                     session.add(municipio)
-            except:
+            except NameError:
                 pass
-                #print('',end='.')
-            #print(municipio.__dict__)
-            #break
         session.commit() #Salvando o dado no banco de dados
-        session.close() 
+        session.close()

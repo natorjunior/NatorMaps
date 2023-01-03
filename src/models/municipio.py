@@ -1,16 +1,14 @@
+"""docstring"""
 import pandas as pd
 import sqlalchemy
 from sqlalchemy.sql.schema import Column
 from sqlalchemy import String, Integer
-from sqlalchemy.orm import declarative_base, sessionmaker
-import numpy as np
-import requests
-from tqdm.auto import tqdm
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import declarative_base
 
 engine = sqlalchemy.create_engine('sqlite:///natorMaps.db', echo=False)
 Base = declarative_base()
 class Municipio(Base):
+    """docstring"""
     __tablename__ = 'municipio' # campo obrigatório
     id = Column(Integer, primary_key=True) # campo obrigatório
     malha = Column(String(100000))
@@ -24,20 +22,12 @@ class Municipio(Base):
     uf = Column(String(20))
     codigo_uf = Column(Integer)
     populacao_estimada = Column(Integer)
-    onclick=False 
+    onclick=False
     hover=False
-    """
-        Funcao para calcular e retornar os municipios
-    """
     def retornar_municipios(self):
-        pass
-    """
-        Funcao para ler as malhas de acordo com o ano de referencia
-    """
-    def load_malhas():
-        pass
-    """ 
-        funcao para retornar o mapa em formato de string
-    """
+        """Funcao para calcular e retornar os municipios"""
+    def load_malhas(self):
+        """Funcao para ler as malhas de acordo com o ano de referencia"""
+
     def retornar_mapa_str(self,tipo: str, dados: pd.DataFrame) -> str:
-        pass
+        """funcao para retornar o mapa em formato de string"""
